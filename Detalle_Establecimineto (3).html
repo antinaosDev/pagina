@@ -1,0 +1,348 @@
+﻿
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Evolución del MAIS - Justificación del Incumplimiento 2025</title>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&family=Montserrat:wght@700;800&display=swap" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <style>
+        :root {
+            --primary: #1a5f7a;
+            --secondary: #57a773;
+            --accent: #ff6b6b;
+            --light: #f8f9fa;
+            --dark: #212529;
+            --gray: #6c757d;
+            --light-gray: #e9ecef;
+        }
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        body {
+            font-family: 'Roboto', sans-serif;
+            background-color: #f5f7fa;
+            color: var(--dark);
+            line-height: 1.6;
+        }
+        .slide {
+            width: 90%;
+            max-width: 1000px;
+            margin: 40px auto;
+            padding: 40px;
+            background: white;
+            border-radius: 16px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.08);
+            opacity: 0;
+            transform: translateY(20px);
+            animation: fadeInUp 0.8s forwards;
+        }
+        @keyframes fadeInUp {
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        .slide:nth-child(1) { animation-delay: 0.2s; }
+        .slide:nth-child(2) { animation-delay: 0.4s; }
+        .slide:nth-child(3) { animation-delay: 0.6s; }
+        .slide:nth-child(4) { animation-delay: 0.8s; }
+        .slide:nth-child(5) { animation-delay: 1.0s; }
+        .slide:nth-child(6) { animation-delay: 1.2s; }
+
+        h1 {
+            font-family: 'Montserrat', sans-serif;
+            font-size: 2.4rem;
+            color: var(--primary);
+            margin-bottom: 20px;
+            text-align: center;
+        }
+        h2 {
+            font-family: 'Montserrat', sans-serif;
+            font-size: 1.8rem;
+            color: var(--primary);
+            margin: 25px 0 15px;
+        }
+        h3 {
+            font-size: 1.4rem;
+            color: var(--secondary);
+            margin: 20px 0 12px;
+        }
+        p {
+            margin-bottom: 15px;
+            font-size: 1.1rem;
+        }
+        .highlight {
+            background-color: rgba(87, 167, 115, 0.1);
+            padding: 20px;
+            border-left: 4px solid var(--secondary);
+            border-radius: 0 8px 8px 0;
+            margin: 20px 0;
+        }
+        .warning {
+            background-color: rgba(255, 107, 107, 0.1);
+            padding: 20px;
+            border-left: 4px solid var(--accent);
+            border-radius: 0 8px 8px 0;
+            margin: 20px 0;
+        }
+        .chart-container {
+            height: 300px;
+            margin: 25px 0;
+        }
+        .grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 20px;
+            margin: 20px 0;
+        }
+        .card {
+            background: var(--light-gray);
+            padding: 20px;
+            border-radius: 10px;
+            border-top: 4px solid var(--primary);
+        }
+        .card h4 {
+            color: var(--primary);
+            margin-bottom: 10px;
+        }
+        .strong {
+            font-weight: 700;
+            color: var(--primary);
+        }
+        .green { color: var(--secondary); font-weight: 700; }
+        .red { color: var(--accent); font-weight: 700; }
+        .footer-note {
+            font-size: 0.95rem;
+            color: var(--gray);
+            font-style: italic;
+            margin-top: 10px;
+        }
+        ul {
+            padding-left: 20px;
+            margin: 15px 0;
+        }
+        li {
+            margin-bottom: 8px;
+        }
+        .quote {
+            font-style: italic;
+            padding: 15px;
+            background: var(--light);
+            border-radius: 8px;
+            margin: 20px 0;
+            border-left: 3px solid var(--primary);
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Diapositiva 1: Portada -->
+    <div class="slide">
+        <h1>Evolución del MAIS en Nuestro Centro de Salud<br><span style="font-size:1.8rem; font-weight:500;">Justificación del Incumplimiento 2025</span></h1>
+        <p style="text-align:center; font-size:1.2rem; margin-top:20px;">
+            Análisis integral basado en datos históricos, contexto institucional y hallazgos de la evaluación acreditativa
+        </p>
+        <p style="text-align:center; margin-top:30px; color:var(--gray);">
+            Marzo 2025 | Equipo Gestor MAIS – CESFAM
+        </p>
+    </div>
+
+    <!-- Diapositiva 2: Evolución histórica y cambio de modelo -->
+    <div class="slide">
+        <h2>1. Contexto de transición: no es un retroceso, es una reconfiguración</h2>
+        
+        <p>Entre 2020 y 2023, el establecimiento evaluó <strong>9 ejes</strong> del modelo tradicional. En 2024, el MAIS se reestructuró en <strong>3 principios fundamentales</strong>:</p>
+        <ul>
+            <li>Centrado en las personas</li>
+            <li>Integralidad</li>
+            <li>Continuidad del cuidado</li>
+        </ul>
+
+        <div class="chart-container">
+            <canvas id="evolutionChart"></canvas>
+        </div>
+
+        <div class="highlight">
+            <p><span class="strong">Clave:</span> La caída en puntajes en 2024–2025 <strong>no refleja falta de trabajo</strong>, sino la transición a un modelo más exigente, con nuevos verificadores y un umbral de acreditación del <span class="red">65%</span> (frente a evaluaciones anteriores que no requerían acreditación formal).</p>
+        </div>
+    </div>
+
+    <!-- Diapositiva 3: Comparación de resultados y hallazgos cualitativos -->
+    <div class="slide">
+        <h2>2. Resultados 2025: brecha entre acción y formalización</h2>
+
+        <div class="grid">
+            <div class="card">
+                <h4>Evaluación Externa 2025</h4>
+                <p><strong>Centrado en personas:</strong> 17.19%</p>
+                <p><strong>Integralidad:</strong> 25%</p>
+                <p><strong>Continuidad:</strong> 16.67%</p>
+                <p><strong>Total:</strong> <span class="red">19.08%</span></p>
+            </div>
+            <div class="card">
+                <h4>Autoevaluación 2025</h4>
+                <p><strong>Centrado en personas:</strong> 18.75%</p>
+                <p><strong>Integralidad:</strong> 52.5%</p>
+                <p><strong>Continuidad:</strong> 20.83%</p>
+                <p><strong>Total:</strong> <span class="green">28.29%</span></p>
+            </div>
+        </div>
+
+        <h3>Hallazgos cualitativos clave (Acta de Evaluación)</h3>
+        <ul>
+            <li>✅ <strong>Trabajo comunitario real:</strong> Mapeo detallado, diagnóstico territorial, proyectos en ejecución.</li>
+            <li>✅ <strong>Actividades implementadas:</strong> Educación grupal, análisis de policonsultantes, plan de Buen Trato.</li>
+            <li>❌ <strong>Pero falta formalización:</strong> No hay actas, decretos, protocolos visados ni registros estandarizados.</li>
+        </ul>
+
+        <div class="quote">
+            “Los procesos no pueden ser persona-dependientes; la documentación debe ser accesible para todo el equipo gestor.”<br>
+            — Equipo Evaluador, Acta de Reunión 2025
+        </div>
+    </div>
+
+    <!-- Diapositiva 4: Factores explicativos del incumplimiento -->
+    <div class="slide">
+        <h2>3. ¿Por qué no se cumplen los verificadores? Factores sistémicos</h2>
+
+        <h3>🔍 Causas estructurales (no por falta de esfuerzo)</h3>
+        <ul>
+            <li><strong>Transición institucional incompleta:</strong> El equipo asumió recientemente la responsabilidad tras la salida del encargado anterior (Raúl Ávalos), sin continuidad documental.</li>
+            <li><strong>Confusión en orientaciones:</strong> Se trabajó en un “plan de mejora 2025” bajo instrucciones anteriores (“solo lo obligatorio”), mientras el Servicio aplicó la matriz completa de acreditación.</li>
+            <li><strong>Falta de acompañamiento técnico continuo:</strong> No hubo retroalimentación intermedia ni clarificación del nuevo marco normativo.</li>
+            <li><strong>Modelo nuevo, exigente y poco familiar:</strong> Los 3 principios requieren una reingeniería de procesos, no solo ajustes.</li>
+        </ul>
+
+        <div class="highlight">
+            <p><span class="strong">Conclusión:</span> El incumplimiento actual es el resultado de una <strong>transición compleja en un contexto de cambio normativo</strong>, no de inacción o desinterés del equipo local.</p>
+        </div>
+    </div>
+
+    <!-- Diapositiva 5: Evidencia de trabajo real vs. requisitos formales -->
+    <div class="slide">
+        <h2>4. Lo que SÍ se hace vs. lo que NO se documenta</h2>
+
+        <div class="grid">
+            <div class="card">
+                <h4>✅ Acciones implementadas</h4>
+                <ul>
+                    <li>Mapeo comunitario con georreferenciación</li>
+                    <li>Diagnóstico territorial (Sectores Sol/Luna)</li>
+                    <li>Piloto de sectorización en enfermería</li>
+                    <li>Plan de Buen Trato con 7 acciones</li>
+                    <li>Análisis de 145 usuarios policonsultantes</li>
+                    <li>Renovación de infraestructura (módulo info, Sala Sensorial)</li>
+                </ul>
+            </div>
+            <div class="card">
+                <h4>❌ Brechas formales</h4>
+                <ul>
+                    <li>No hay cartela familiar (obligatorio)</li>
+                    <li>Falta decreto de sectorización</li>
+                    <li>Protocolos sin visado/aprobación</li>
+                    <li>Planes de cuidado sin consenso ni firma</li>
+                    <li>Mapeo sin acta de validación</li>
+                    <li>Capacitación de 27h (faltan 1h)</li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="warning">
+            <p><span class="strong">Alerta crítica:</span> El 100% de los indicadores obligatorios deben cumplirse para acreditación. Actualmente, <span class="red">múltiples indicadores obligatorios están incumplidos</span>, no por ausencia de acción, sino por <strong>falta de alineación con los formatos exigidos</strong>.</p>
+        </div>
+    </div>
+
+    <!-- Diapositiva 6: Conclusión y compromiso -->
+    <div class="slide">
+        <h2>5. Conclusión: Un llamado a la comprensión y al acompañamiento</h2>
+
+        <div class="highlight">
+            <p>El bajo puntaje de 2025 <strong>no es un indicador de inacción</strong>, sino de una <strong>transición institucional en curso</strong> bajo un nuevo marco normativo exigente y poco familiar.</p>
+        </div>
+
+        <h3>Nuestro compromiso:</h3>
+        <ul>
+            <li>Formalizar lo que ya hacemos (protocolos, actas, decretos).</li>
+            <li>Priorizar los indicadores obligatorios para 2026.</li>
+            <li>Crear un sistema de gestión documental centralizado.</li>
+            <li>Solicitar acompañamiento técnico continuo del Servicio.</li>
+        </ul>
+
+        <p style="margin-top:25px; text-align:center; font-size:1.2rem;">
+            <span class="strong">No pedimos indulgencia, sino comprensión del contexto.</span><br>
+            Estamos comprometidos con la acreditación, pero necesitamos tiempo y apoyo para alinear nuestro trabajo con el nuevo modelo.
+        </p>
+
+        <p class="footer-note" style="text-align:center; margin-top:30px;">
+            Basado en datos históricos (2020–2025) y Acta Completa de Evaluación Acreditativa – Marzo 2025
+        </p>
+    </div>
+
+    <script>
+        // Gráfico de evolución
+        const ctx = document.getElementById('evolutionChart').getContext('2d');
+        const evolutionChart = new Chart(ctx, {
+            type: 'line',
+            data: {
+                labels: ['2020', '2021', '2022', '2023', '2024', '2025'],
+                datasets: [
+                    {
+                        label: 'Autoevaluación',
+                        data: [42.46, 44.62, 31.23, 41.12, 20.39, 28.29],
+                        borderColor: '#57a773',
+                        backgroundColor: 'rgba(87, 167, 115, 0.1)',
+                        borderWidth: 3,
+                        pointRadius: 5,
+                        fill: false,
+                        tension: 0.3
+                    },
+                    {
+                        label: 'Evaluación Externa',
+                        data: [0, 0, 29.62, 0, 0, 19.08],
+                        borderColor: '#1a5f7a',
+                        backgroundColor: 'rgba(26, 95, 122, 0.1)',
+                        borderWidth: 3,
+                        pointRadius: 5,
+                        fill: false,
+                        tension: 0.3
+                    }
+                ]
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                plugins: {
+                    legend: {
+                        position: 'top',
+                    },
+                    tooltip: {
+                        mode: 'index',
+                        intersect: false
+                    }
+                },
+                scales: {
+                    y: {
+                        beginAtZero: true,
+                        max: 100,
+                        title: {
+                            display: true,
+                            text: 'Puntaje (%)'
+                        }
+                    },
+                    x: {
+                        title: {
+                            display: true,
+                            text: 'Año'
+                        }
+                    }
+                }
+            }
+        });
+    </script>
+
+</body>
+</html>
